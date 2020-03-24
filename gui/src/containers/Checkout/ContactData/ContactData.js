@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import * as actions from "../../../store/actions/index"
 import axios from '../../../axios-orders'
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
+import {updateObject, checkValidity} from '../../../shared/utility'
 
 class ContactData extends React.Component{
     state = {
@@ -98,22 +99,6 @@ class ContactData extends React.Component{
         formIsValid: false,
     }
 
-    checkValidity = (value, rules) =>{
-        let isValid = true
-        if(!rules){
-            return true
-        }
-        if(rules.required){
-            isValid = (value.trim() !== '' && isValid)
-        }
-        if(rules.minLength){
-            isValid = (value.length >= rules.minLength && isValid)
-        }
-        if(rules.maxLength){
-            isValid = (value.length <= rules.maxLength && isValid)
-        }
-        return isValid
-    }
     orderHandler = (event) => {
         event.preventDefault()
         const order = {
@@ -127,16 +112,15 @@ class ContactData extends React.Component{
     }
 
     inputChangedHandler= (event, inputIdentifier) => {
-        const updatedOrderForm = {
-            ...this.state.orderForm
-        }
-        const updatedFormElement = {
-            ...updatedOrderForm[inputIdentifier]
-        }
-        updatedFormElement.value = event.target.value
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation)
-        updatedFormElement.touched = true;
-        updatedOrderForm[inputIdentifier] = updatedFormElement
+        
+        const updatedFormElement =  updateObject(this.state.orderForm[inputIdentifier], {
+            value: event.target.value,
+            valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
+            touched: true
+        })
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [inputIdentifier] : updatedFormElement
+        })
         let formIsValid = true
         for(let inputIdentifier in updatedOrderForm){
             if(updatedOrderForm[inputIdentifier].valid === false){
