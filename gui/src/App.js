@@ -32,7 +32,7 @@ const App = ({onTryAutoSignup, isAuthenticated}) => {
       <Switch>
         <Route path="/checkout" render={renderComponent(Checkout)}></Route>
         <Route path="/orders" component={renderComponent(Orders)}></Route>
-        <Route path="/logout" component={Logout}></Route>
+        <Route path="/logout" component={renderComponent(Logout)}></Route>
         <Route exact path="/auth" component={renderComponent(Auth)}></Route>
         <Route exact path="/" component={renderComponent(BurgerBuilder)}></Route>
       </Switch>
