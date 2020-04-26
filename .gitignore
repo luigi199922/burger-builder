@@ -2,12 +2,15 @@
 
 # dependencies
 node_modules/
-config/
+
 .pnp/
 .pnp.js
 
 # testing
 coverage/
+
+# config
+config/
 
 # production
 build/

@@ -1,9 +1,5 @@
 {
   "name": "gui",
-  "jest": {
-    "verbose": true,
-    "transformIgnorePatterns": ["<rootDir>/components/"]
-  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -94,6 +90,7 @@
     ]
   },
   "jest": {
+    "verbose": true,
     "roots": [
       "<rootDir>/src"
     ],
@@ -119,7 +116,8 @@
     },
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
-      "^.+\\.module\\.(css|sass|scss)$"
+      "^.+\\.module\\.(css|sass|scss)$",
+      "<rootDir>/components/"
     ],
     "modulePaths": [],
     "moduleNameMapper": {
